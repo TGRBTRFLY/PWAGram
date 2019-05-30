@@ -11,7 +11,7 @@ function openCreatePostModal() {
             if (choiceResult.outcome === 'dismissed') {
                 console.log('User cancelled installation');
             } else {
-                console.log('User added to home screen')
+                console.log('User added to home screen');
             }
         });
         deferredPrompt = null;
