@@ -5,6 +5,9 @@ if ('serviceWorker' in navigator) {
         .register('/sw.js')
         .then(function () {
             console.log('Service Worker registered!');
+        })
+        .catch(function (err) {
+            console.log(err);
         });
 }
 window.addEventListener('beforeinstallprompt', function (event) {
@@ -20,8 +23,20 @@ var promise = new Promise(function (resolve, reject) {
         reject({code: 500, message: 'An error occurred!'});
         //console.log('This is executed once the timer is done!');
     }, 3000);
-
 });
+
+fetch('https://httpbin.org/ip')
+    .then(function (response) {
+        console.log(response);
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+    })
+    .catch(function (err) {
+        console.log(err);
+    });
+
 
 // promise.then(function (text) {
 // //     return text;
