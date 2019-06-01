@@ -170,7 +170,7 @@
             reader.onerror = function () {
                 reject(reader.error);
             };
-        });
+        })
     }
 
     function readBlobAsArrayBuffer(blob) {
@@ -267,7 +267,7 @@
                 } else {
                     return this.blob().then(readBlobAsArrayBuffer);
                 }
-            };
+            }
         }
 
         this.text = function () {
@@ -399,7 +399,7 @@
             statusText: this.statusText,
             headers: new Headers(this.headers),
             url: this.url
-        });
+        })
     };
 
     Response.error = function () {
@@ -461,7 +461,7 @@
             });
 
             xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit);
-        });
+        })
     };
     self.fetch.polyfill = true;
 })(typeof self !== 'undefined' ? self : this);

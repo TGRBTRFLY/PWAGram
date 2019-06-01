@@ -184,13 +184,11 @@ window.setImmediate || function () {
                 fulfillPromise(promise, value);
             }
         }
-
         function reject(reason) {
             if (promise[STATUS] == PENDING) {
                 rejectPromise(promise, reason);
             }
         }
-
         try {
             resolver(resolve, reject);
         } catch (error) {
@@ -264,15 +262,12 @@ window.setImmediate || function () {
                     call(resolve, reject, value);
                 }
             }
-
             function asyncOnFulfilled() {
                 setImmediate(tryCall, onFulfilled);
             }
-
             function asyncOnRejected() {
                 setImmediate(tryCall, onRejected);
             }
-
             switch (promise[STATUS]) {
                 case FULFILLED:
                     asyncOnFulfilled();
