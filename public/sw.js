@@ -1,7 +1,7 @@
 importScripts('/src/js/idb.js');
 importScripts('/src/js/utility.js');
 
-var CACHE_STATIC_NAME = 'static-v17';
+var CACHE_STATIC_NAME = 'static-v18';
 var CACHE_DYNAMIC_NAME = 'dynamic-v2';
 var STATIC_FILES = [
     '/',
@@ -42,7 +42,7 @@ self.addEventListener('install', function (event) {
                 console.log('[Service Worker] Precaching App Shell');
                 cache.addAll(STATIC_FILES);
             })
-    )
+    );
 });
 
 self.addEventListener('activate', function (event) {
@@ -79,7 +79,10 @@ self.addEventListener('fetch', function (event) {
         event.respondWith(fetch(event.request)
             .then(function (res) {
                 var clonedRes = res.clone();
-                clonedRes.json()
+                clearAllData('posts')
+                    .then(function () {
+                        return clonedRes.json();
+                    })
                     .then(function (data) {
                         for (var key in data) {
                             writeData('posts', data[key]);
@@ -106,7 +109,7 @@ self.addEventListener('fetch', function (event) {
                                         // trimCache(CACHE_DYNAMIC_NAME, 3);
                                         cache.put(event.request.url, res.clone());
                                         return res;
-                                    })
+                                    });
                             })
                             .catch(function (err) {
                                 return caches.open(CACHE_STATIC_NAME)
@@ -120,7 +123,8 @@ self.addEventListener('fetch', function (event) {
                 })
         );
     }
-});
+})
+;
 
 // self.addEventListener('fetch', function(event) {
 //   event.respondWith(
